@@ -1,0 +1,20 @@
+{
+  "name": "simple-bank-solidity",
+  "version": "1.0.0",
+  "description": "A bank with basic functionality written in solidity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nots29vv/Simple-Bank-solidity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nots29vv/Simple-Bank-solidity/issues"
+  },
+  "homepage": "https://github.com/nots29vv/Simple-Bank-solidity#readme"
+}
