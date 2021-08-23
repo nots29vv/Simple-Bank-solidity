@@ -2,15 +2,16 @@
 pragma solidity =0.8.5;
 
 contract SimpleBank {
-
-
-
     
-    mapping(address => uint) private balanceOf;
+    
     address public owner;
+
+    mapping(address => uint) private balanceOf;
+
     event LogDepositMade(address entitiesAddr, uint amountDeposited);
    
     constructor () {
+
             owner = msg.sender;
     }
 
@@ -38,13 +39,18 @@ contract SimpleBank {
         }
         currentBalance = balanceOf[msg.sender];
     }
-  
 
 
+    function balance() public view returns (uint currentBalance){
 
-    
+         currentBalance = balanceOf[msg.sender];
+    }
 
+    fallback (bytes calldata _input) external returns (bytes memory _output) {
+                 
+                 _output = _input;
 
-
+                 revert("this function doesn't exist");
+    }
     
 }

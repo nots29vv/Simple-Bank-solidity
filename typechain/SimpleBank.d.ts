@@ -22,11 +22,13 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface SimpleBankInterface extends ethers.utils.Interface {
   functions: {
+    "balance()": FunctionFragment;
     "deposit()": FunctionFragment;
     "owner()": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "balance", values?: undefined): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -34,6 +36,7 @@ interface SimpleBankInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
 
+  decodeFunctionResult(functionFragment: "balance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -89,6 +92,10 @@ export class SimpleBank extends BaseContract {
   interface: SimpleBankInterface;
 
   functions: {
+    balance(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { currentBalance: BigNumber }>;
+
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -100,6 +107,8 @@ export class SimpleBank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  balance(overrides?: CallOverrides): Promise<BigNumber>;
 
   deposit(
     overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -113,6 +122,8 @@ export class SimpleBank extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    balance(overrides?: CallOverrides): Promise<BigNumber>;
+
     deposit(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -134,6 +145,8 @@ export class SimpleBank extends BaseContract {
   };
 
   estimateGas: {
+    balance(overrides?: CallOverrides): Promise<BigNumber>;
+
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -147,6 +160,8 @@ export class SimpleBank extends BaseContract {
   };
 
   populateTransaction: {
+    balance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
